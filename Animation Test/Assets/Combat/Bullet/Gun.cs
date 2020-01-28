@@ -32,7 +32,7 @@ public class Gun : MonoBehaviour
             Target = other.gameObject;
             transform.LookAt(Target.transform);
             SeeTarget = true;
-            if (Input.GetButtonDown("DroneFire"))
+            if (Input.GetButton("DroneFire"))
             {
                 Instantiate(Projectile, Bspawner.transform.position, Bspawner.transform.rotation);
             }

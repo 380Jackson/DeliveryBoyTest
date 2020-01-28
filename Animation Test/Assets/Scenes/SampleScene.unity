@@ -126,7 +126,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20064
+  m_Name: pb_Mesh23646
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -385,9 +385,9 @@ GameObject:
   - component: {fileID: 430813296}
   - component: {fileID: 430813298}
   - component: {fileID: 430813297}
-  - component: {fileID: 430813300}
   - component: {fileID: 430813299}
   - component: {fileID: 430813301}
+  - component: {fileID: 430813300}
   m_Layer: 9
   m_Name: Gun
   m_TagString: Untagged
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bspawner: {fileID: 523272645}
-  Projectile: {fileID: 6748256799003584009, guid: 57d449239367e544291af5f59236179e,
+  Projectile: {fileID: 61016013213648885, guid: 57d449239367e544291af5f59236179e,
     type: 3}
 --- !u!135 &430813300
 SphereCollider:
@@ -482,8 +482,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 30.5
-  m_Center: {x: 0, y: -0.0000076293945, z: 0}
+  m_Radius: 25.15
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &430813301
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -622,7 +622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523272645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.511}
+  m_LocalPosition: {x: 0, y: 0, z: 0.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 430813296}
@@ -710,7 +710,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 20, y: -45, z: 0}
 --- !u!114 &534669906
 MonoBehaviour:
@@ -8958,7 +8958,7 @@ PrefabInstance:
     - target: {fileID: 5482433428976428679, guid: 13e6d360aece5f64f91204f6e8499eff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5482433428976428679, guid: 13e6d360aece5f64f91204f6e8499eff,
         type: 3}
