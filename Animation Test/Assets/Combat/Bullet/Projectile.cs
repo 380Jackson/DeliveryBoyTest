@@ -32,4 +32,16 @@ public class Projectile : MonoBehaviour
     {
         CurrentTime = CurrentTime + 1 * Time.deltaTime;
     }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Target")
+        {
+            Destroy(this.gameObject);
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

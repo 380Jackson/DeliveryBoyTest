@@ -152,24 +152,36 @@ PrefabInstance:
       value: Player - main
       objectReference: {fileID: 0}
     - target: {fileID: 100132, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100132, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100132, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 100134, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100134, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
       propertyPath: m_Layer
@@ -487,10 +499,6 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
-    - target: {fileID: 9500000, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
-      propertyPath: m_Avatar
-      value: 
-      objectReference: {fileID: 9000000, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef67fcbebe328764f963f2717ead4ae7, type: 3}
 --- !u!1 &5482433428976204455 stripped

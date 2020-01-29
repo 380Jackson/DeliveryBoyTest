@@ -9,6 +9,8 @@ public class Gun : MonoBehaviour
     private bool SeeTarget;
     public GameObject Bspawner;
     public GameObject Projectile;
+    public GameObject Defaultlook;
+    public int FireRate;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,10 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SeeTarget == false)
+        {
+            transform.LookAt(Defaultlook.transform);
+        }
         
     }
 
@@ -32,14 +38,20 @@ public class Gun : MonoBehaviour
             Target = other.gameObject;
             transform.LookAt(Target.transform);
             SeeTarget = true;
-            if (Input.GetButton("DroneFire"))
-            {
-                Instantiate(Projectile, Bspawner.transform.position, Bspawner.transform.rotation);
-            }
+            StartCoroutine(Fire());
         }
         
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        SeeTarget = false;
+    }
 
-    
+    IEnumerator Fire()
+    {
+        yield return new WaitForSeconds(FireRate);
+        Instantiate(Projectile, Bspawner.transform.position, Bspawner.transform.rotation);
+    }
+
 }
