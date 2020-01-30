@@ -10,11 +10,15 @@ public class Gun : MonoBehaviour
     public GameObject Bspawner;
     public GameObject Projectile;
     public GameObject Defaultlook;
-    public int FireRate;
-
+    public float PsensorLength;
+    public float FireRate;
+    private float LastShot;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
+        
         SeeTarget = false;
     }
 
@@ -25,6 +29,7 @@ public class Gun : MonoBehaviour
         {
             transform.LookAt(Defaultlook.transform);
         }
+
         
     }
 
@@ -36,9 +41,11 @@ public class Gun : MonoBehaviour
         {
             
             Target = other.gameObject;
-            transform.LookAt(Target.transform);
+            
+            transform.LookAt(new Vector3(Target.transform.position.x, Target.transform.position.y + 2.5f, Target.transform.position.z));
             SeeTarget = true;
-            StartCoroutine(Fire());
+            Fire();
+            
         }
         
     }
@@ -48,10 +55,14 @@ public class Gun : MonoBehaviour
         SeeTarget = false;
     }
 
-    IEnumerator Fire()
+    void Fire()
     {
-        yield return new WaitForSeconds(FireRate);
-        Instantiate(Projectile, Bspawner.transform.position, Bspawner.transform.rotation);
+        if(Time.time > FireRate + LastShot)
+        {
+            Instantiate(Projectile, Bspawner.transform.position, Bspawner.transform.rotation);
+            LastShot = Time.time;
+
+        }
     }
 
 }

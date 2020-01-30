@@ -5,26 +5,72 @@ using UnityEngine;
 public class DroneOrbit : MonoBehaviour
 {
     public GameObject Target;
-    private Transform center;
-    private Vector3 axis = Vector3.up;
-    private Vector3 desiredPosition;
     public float radius = 2.0f;
-    public float radiusSpeed = 0.5f;
-    public float rotationSpeed = 80.0f;
+    public float orbitDegreesPerSec = 180.0f;
+    public Vector3 relativeDistance = Vector3.zero;
+    
+    
 
     void Start()
     {
-        
-        center = Target.transform;
-        transform.position = (transform.position - center.position).normalized * radius + center.position;
-        radius = 2.0f;
+
+        if (Target != null)
+        {
+            relativeDistance = transform.position - Target.transform.position;
+        }
+
     }
 
-    void Update()
+    private void Update()
     {
-        transform.RotateAround(center.position, axis, rotationSpeed * Time.deltaTime);
-        desiredPosition = (transform.position - center.position).normalized * radius + center.position;
-        transform.position = Vector3.MoveTowards(transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+        TargetChooser();
+
+        
+    }
+
+    void LateUpdate()
+    {
+        Orbit();
+    }
+
+    void Orbit()
+    {
+        if (Target != null)
+        {
+            // Keep us at the last known relative position
+            transform.position = Target.transform.position + relativeDistance;
+            transform.RotateAround(Target.transform.position, Vector3.up, orbitDegreesPerSec * Time.deltaTime);
+            // Reset relative position after rotate
+            relativeDistance = transform.position - Target.transform.position;
+        }
+    }
+
+    void TargetChooser()
+    {
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        foreach (RaycastHit hit in Physics.RaycastAll(ray))
+        {
+            if (hit.transform.gameObject.tag == "Target" || hit.transform.gameObject.tag == "Player")
+            {
+                if(hit.transform.gameObject.tag == "Target")
+                {
+
+                    hit.transform.gameObject.GetComponent<TargetColorBehavior>().SetTargetColor();
+                }
+
+
+
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Debug.Log("Hit this thing:" + hit.transform.gameObject.name);
+                    Target = hit.transform.gameObject;
+                    
+                }
+                
+            }
+        }
+        
     }
 }
 
