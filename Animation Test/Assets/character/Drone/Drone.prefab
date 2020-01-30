@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d39c6e82b272c334fa42b438399a8655, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
     type: 3}
   Defaultlook: {fileID: 0}
   PsensorLength: 3
-  FireRate: 2
+  FireRate: 3
 --- !u!54 &430813301
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -216,7 +216,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d39c6e82b272c334fa42b438399a8655, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -284,5 +284,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   radius: 2
-  radiusSpeed: 20
-  rotationSpeed: 80
+  orbitDegreesPerSec: 90
+  relativeDistance: {x: 0, y: 2.5, z: 0}

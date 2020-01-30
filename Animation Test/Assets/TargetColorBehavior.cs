@@ -21,11 +21,11 @@ public class TargetColorBehavior : MonoBehaviour
         
         if (Targeted == false)
         {
-            GetComponent<Renderer>().material.SetColor("_BaseColor", DefualtColor);
+            GetComponent<Renderer>().material.color = DefualtColor;
         }
         if (Targeted == true)
         {
-            GetComponent<Renderer>().material.SetColor("_BaseColor", TargetSelect);
+            GetComponent<Renderer>().material.color = TargetSelect;
         }
 
         Targeted = false;
