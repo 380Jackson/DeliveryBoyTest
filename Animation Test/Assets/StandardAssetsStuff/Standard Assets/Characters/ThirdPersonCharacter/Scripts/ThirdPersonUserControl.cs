@@ -13,9 +13,21 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
+
+        // added by JACKSON LANAUS
+        public Transform spineBone;
+        private Vector3 mousePos;
+        public float LookAngle;
+        Animator m_Animator;
         
+
+        public bool ConstrainedMove = true;
+        
+
         private void Start()
         {
+
+            m_Animator = GetComponent<Animator>();
             // get the transform of the main camera
             if (Camera.main != null)
             {
@@ -70,6 +82,54 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
             m_Jump = false;
+
+        }
+
+        private void LateUpdate()
+        {
+            // ADDED BY JACKSON LANAUS
+
+            RaycastHit _hit;
+            Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(_ray, out _hit))
+            {
+
+                mousePos = _hit.point;
+
+            }
+            
+            if(ConstrainedMove == true)
+            {
+                if (Vector3.Angle(transform.forward, mousePos - transform.position) < LookAngle) //subtracting the transform position from the mousePos got the angle calculation I was looking for
+                {
+
+                    Vector3 targetPos = new Vector3(mousePos.x, spineBone.transform.position.y, mousePos.z); //this limits the LookAt to only rotate on the X axis by basically saying keep the y axis between the spineBone and the mousePos the same
+                    spineBone.LookAt(targetPos);
+
+
+                }
+
+                else
+                {
+
+                    //rotate the whole character's body
+                }
+            }
+
+            if (ConstrainedMove == false)
+            {
+                Vector3 targetPos = new Vector3(mousePos.x, spineBone.transform.position.y, mousePos.z); //this limits the LookAt to only rotate on the X axis by basically saying keep the y axis between the spineBone and the mousePos the same
+                spineBone.LookAt(targetPos);
+            }
+
+            //Debug.Log(Vector3.Angle(transform.forward, mousePos - transform.position));
+
+            
+
+            
+
+            //NOT ADDED BY JACKOSN LANAUS, STARTING HERE.
         }
     }
 }

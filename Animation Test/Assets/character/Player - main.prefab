@@ -1301,6 +1301,7 @@ GameObject:
   - component: {fileID: 4411313374069732903}
   - component: {fileID: 4411313374069732902}
   - component: {fileID: 4411313374069732901}
+  - component: {fileID: 1969991559}
   m_Layer: 9
   m_Name: Player - main
   m_TagString: Player
@@ -1387,6 +1388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spineBone: {fileID: 4411313373830249499}
+  LookAngle: 90
+  ConstrainedMove: 1
 --- !u!114 &4411313374069732901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1407,6 +1411,20 @@ MonoBehaviour:
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.3
+--- !u!114 &1969991559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4411313374069732923}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7e5657105d7db41807dc79cf3bc246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spineBone: {fileID: 4411313373830249499}
+  LookAngle: 90
 --- !u!1 &4411313374071320240
 GameObject:
   m_ObjectHideFlags: 0
