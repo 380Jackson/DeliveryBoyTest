@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float gravityForce;
     public bool IsOnGround;
-
+    public GameObject CameraOrient;
 
 
     private Transform cam;
@@ -81,8 +81,10 @@ public class PlayerMovement : MonoBehaviour
         
         
         Move(move);
+        
 
-        Vector3 movement = new Vector3(mH, gravity, mV * 2.2f);
+        Vector3 movement = new Vector3(mH , gravity, mV * 2.2f);
+        movement = CameraOrient.transform.TransformDirection(movement);
         rb.velocity = movement * speed;
 
     }
