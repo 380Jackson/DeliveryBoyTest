@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float gravityForce;
     public bool IsOnGround;
     public GameObject CameraOrient;
-    
+    public float jumpHeight;
 
     private Transform cam;
     private Rigidbody rb;
@@ -27,9 +27,9 @@ public class PlayerMovement : MonoBehaviour
     private float turnAmount;
     private float h;
     private bool IsCrouch;
-    public float JumpHeight;
     private bool IsJumping;
-
+    private float Jgravity = 16;
+    
     
 
     void Start()
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         groundCheck();
-
+        JumpPressed();
         if(IsOnGround == true)
         {
             h = 0;
@@ -120,9 +120,11 @@ public class PlayerMovement : MonoBehaviour
         {
             IsJumping = true;
             Debug.Log("Jumped");
-            rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            IsOnGround = false;
+            h = Mathf.Sqrt(2f * Jgravity * jumpHeight);
             
-            
+
+
         }
     }
 
@@ -183,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit _gHit;
         Ray _gRay = new Ray(transform.position, -transform.up);
 
-        if (Physics.Raycast(_gRay, out _gHit, 1.55f))
+        if (Physics.Raycast(_gRay, out _gHit, 1.7f))
         {
             IsOnGround = true;
         }
@@ -194,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("IsGrounded", IsOnGround);
         Debug.Log(IsOnGround);
-        Debug.DrawRay(transform.position, -transform.up * 1.55f, Color.white);
+        Debug.DrawRay(transform.position, -transform.up * 1.7f, Color.white);
     }
 
     
