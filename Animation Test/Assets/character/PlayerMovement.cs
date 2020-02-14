@@ -9,11 +9,13 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public float mH;
     public float mV;
-    public float speed;
+    public float TopSpeed;
+    public float CSpeed;
+    private float speed;
     public float gravityForce;
     public bool IsOnGround;
     public GameObject CameraOrient;
-
+    
 
     private Transform cam;
     private Rigidbody rb;
@@ -23,8 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveInput;
     private float forwardAmount;
     private float turnAmount;
-    private float gravity;
-
+    private float h;
+    private bool IsCrouch;
     public float JumpHeight;
     private bool IsJumping;
 
@@ -32,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-
+        speed = TopSpeed;
         //Animator animator = GetComponent<Animator>();
         IsJumping = false;
         IsOnGround = false;
@@ -40,53 +42,75 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cam = Camera.main.transform;
     }
+    private void Update()
+    {
+        
+    }
 
     void FixedUpdate()
     {
         mH = Input.GetAxis("Horizontal");
-        mV = Input.GetAxis("Vertical") ;
+        mV = Input.GetAxis("Vertical");
+
 
         groundCheck();
 
-        if (IsOnGround == true)
+        if(IsOnGround == true)
         {
-            gravity = 0;
-            
+            h = 0;
         }
 
         if (IsOnGround == false)
         {
-            gravity = gravityForce;
+            h = gravityForce;
         }
 
-    
-        
+
         // setting the moemevnts for animations to be reletive to the camera
-        if(cam != null)
+        if (cam != null)
         {
-            camForward = Vector3.Scale(cam.up, new Vector3(1,0,1).normalized);
+            camForward = Vector3.Scale(cam.up, new Vector3(1, 0, 1).normalized);
             move = mV * camForward + mH * cam.right;
         }
         else
         {
             move = mV * transform.forward + mH * transform.right;
         }
-        if(move.magnitude > 1)
+        if (move.magnitude > 1)
         {
             move.Normalize();
         }
         // rotate towards the mouse
         Rotate();
         // Check for ground (Main for animations, but also for jump limits)
-        
-        
+
+
         Move(move);
-        
+        //JumpPressed();
 
-        Vector3 movement = new Vector3(mH , gravity, mV * 2.2f);
+        if (Input.GetButtonDown("Fire3"))
+        {
+            IsCrouch = !IsCrouch;
+            if (IsCrouch == false)
+            {
+                speed = TopSpeed;
+            }
+            if (IsCrouch == true)
+            {
+                speed = CSpeed;
+            }
+
+        }
+        Vector3 movement = new Vector3(mH, h , mV * 2f);
         movement = CameraOrient.transform.TransformDirection(movement);
-        rb.velocity = movement * speed;
+        NewMethod(movement);
 
+    }
+
+    private void NewMethod(Vector3 movement)
+    {
+        
+        rb.velocity = movement * speed;
     }
 
     // so far not working
@@ -94,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && IsOnGround == true)
         {
+            IsJumping = true;
             Debug.Log("Jumped");
             rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             
@@ -107,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
         {
             move.Normalize();
         }
+
 
         this.moveInput = move;
 
@@ -128,8 +154,9 @@ public class PlayerMovement : MonoBehaviour
     {
         /* START LOCOMOTION */
         // Update the Animator with our values so that the blend tree updates
-        animator.SetFloat("Forward", forwardAmount * 5);
+        animator.SetFloat("Forward", forwardAmount * 4);
         animator.SetFloat("Turn", turnAmount);
+        animator.SetBool("IsCrouching", IsCrouch);
         /* END LOCOMOTION */
 
     }
@@ -156,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit _gHit;
         Ray _gRay = new Ray(transform.position, -transform.up);
 
-        if (Physics.Raycast(_gRay, out _gHit, 1.5f))
+        if (Physics.Raycast(_gRay, out _gHit, 1.55f))
         {
             IsOnGround = true;
         }
@@ -165,7 +192,9 @@ public class PlayerMovement : MonoBehaviour
             IsOnGround = false;
         }
 
-        Debug.DrawRay(transform.position, -transform.up * 1.6f, Color.white);
+        animator.SetBool("IsGrounded", IsOnGround);
+        Debug.Log(IsOnGround);
+        Debug.DrawRay(transform.position, -transform.up * 1.55f, Color.white);
     }
 
     
