@@ -54,7 +54,8 @@ public class PlayerMovementV2 : MonoBehaviour
     public float TopSpeed;
     public float CSpeed;
     public float Xoffset;
-    
+    public GameObject CrouchHitBox;
+    public GameObject normalHitBox;
      
     public GameObject CameraOrient;
     
@@ -75,6 +76,8 @@ public class PlayerMovementV2 : MonoBehaviour
 
     private void Awake()
     {
+        normalHitBox.SetActive(true);
+        CrouchHitBox.SetActive(false);
         movementSpeed = TopSpeed;
         Rigidbody = GetComponent<Rigidbody>();
         Rigidbody.useGravity = false;
@@ -136,10 +139,14 @@ public class PlayerMovementV2 : MonoBehaviour
             IsCrouch = !IsCrouch;
             if (IsCrouch == false)
             {
+                normalHitBox.SetActive(true);
+                CrouchHitBox.SetActive(false);
                 movementSpeed = TopSpeed;
             }
             if (IsCrouch == true)
             {
+                normalHitBox.SetActive(false);
+                CrouchHitBox.SetActive(true);
                 movementSpeed = CSpeed;
             }
 

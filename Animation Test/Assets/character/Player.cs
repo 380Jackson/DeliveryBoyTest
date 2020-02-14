@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     /// The movement component attached to this player.
     /// </summary>
     public PlayerMovementV2 Movement { get; private set; }
-
+    
+    private Vector3 lookPos;
     /// <summary>
     /// Can the player look around using the left stick?
     /// </summary>
@@ -123,13 +124,22 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Vector2 vector = default;
-                Vector2 heading = new Vector2(UnityEngine.Input.GetAxis("Mouse X"), UnityEngine.Input.GetAxis("Mouse Y")) - new Vector2(this.transform.position.x, this.transform.position.z);
-                float TargetDist = heading.magnitude;
-                Vector2 RawDir = heading / TargetDist;
-                vector = RawDir;
+                RaycastHit _hit;
+                Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                return vector;
+                if (Physics.Raycast(_ray, out _hit))
+                {
+                    lookPos = _hit.point;
+                }
+
+                Vector3 lookDir = lookPos - transform.position;
+                
+                lookDir.y = 0;
+
+                transform.LookAt(transform.position + lookDir, Vector3.up);
+                //Vector2 Newlook = new Vector2(lookPos.x,lookPos.z);
+
+                return default;
             }
         }
     }
