@@ -165,6 +165,9 @@ public class PlayerMovementV2 : MonoBehaviour
             PerformJump();
         }
         animator.SetBool("IsGrounded", IsGrounded);
+
+        // crouching
+
     }
 
 
