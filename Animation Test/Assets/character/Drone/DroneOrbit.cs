@@ -61,7 +61,7 @@ public class DroneOrbit : MonoBehaviour
 
 
 
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Fire2"))
                 {
                     Debug.Log("Hit this thing:" + hit.transform.gameObject.name);
                     Target = hit.transform.gameObject;

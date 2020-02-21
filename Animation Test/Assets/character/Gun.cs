@@ -23,22 +23,16 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetButtonDown("Fire1"))
         {
-            Fire();
+
+            Instantiate(Projectile, Bspawner.transform.position, Bspawner.transform.rotation);
         }
         
     }
     
 
-    void Fire()
-    {
-        if(Time.time > FireRate + LastShot)
-        {
-            Instantiate(Projectile, Bspawner.transform.position, Bspawner.transform.rotation);
-            LastShot = Time.time;
-
-        }
-    }
+    
 
 }
