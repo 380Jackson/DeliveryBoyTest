@@ -168,9 +168,14 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit _hit;
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-        if (Physics.Raycast(_ray ,out _hit))
+        if (Physics.Raycast(_ray ,out _hit) && _hit.collider.isTrigger == false)
         {
+
+            
             lookPos = _hit.point;
+            Debug.Log(_hit.transform.tag);
+            
+            
         }
 
         Vector3 lookDir = lookPos - transform.position;

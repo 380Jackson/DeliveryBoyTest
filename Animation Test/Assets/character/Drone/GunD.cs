@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunD : MonoBehaviour
 {
 
-    private GameObject Target;
+    private GameObject ShootTarget;
     private bool SeeTarget;
     public GameObject Bspawner;
     public GameObject Projectile;
@@ -13,6 +13,7 @@ public class GunD : MonoBehaviour
     public float PsensorLength;
     public float FireRate;
     private float LastShot;
+    public DroneOrbit Dr;
     
     
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class GunD : MonoBehaviour
     {
         
         SeeTarget = false;
+        
     }
 
     // Update is called once per frame
@@ -30,29 +32,21 @@ public class GunD : MonoBehaviour
             transform.LookAt(Defaultlook.transform);
         }
 
-        
-    }
-
-
-    private void OnTriggerStay(Collider other)
-    {
-        
-        if (other.gameObject.tag == "Target")
+        if (Dr.Target.tag == "Target")
         {
-            
-            Target = other.gameObject;
-            
-            transform.LookAt(new Vector3(Target.transform.position.x, Target.transform.position.y + 2.5f, Target.transform.position.z));
+
+            ShootTarget = Dr.Target.gameObject;
+
+            transform.LookAt(new Vector3(ShootTarget.transform.position.x, ShootTarget.transform.position.y + 2.5f, ShootTarget.transform.position.z));
             SeeTarget = true;
             Fire();
-            
-        }
-        
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        SeeTarget = false;
+        }
+
+        if (Dr.Target.tag != "Target")
+        {
+            SeeTarget = false;
+        }
     }
 
     void Fire()
