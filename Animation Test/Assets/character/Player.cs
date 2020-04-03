@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    private Health healthComponent;
+
     [SerializeField]
     private int id = 0;
 
@@ -14,7 +16,7 @@ public class Player : MonoBehaviour
     /// The movement component attached to this player.
     /// </summary>
     public PlayerMovementV2 Movement { get; private set; }
-    
+
     private Vector3 lookPos;
     /// <summary>
     /// Can the player look around using the left stick?
@@ -25,6 +27,14 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Rotation that the player should be looking towards based on left stick.
     /// </summary>
+    /// 
+
+    // Lava parameters
+    private bool isTouchingLava;
+    [SerializeField]
+    private float timeBetweenLavaDamage;
+    private float elapsingTimeBetweenLavaDamage;
+
     public float GetRotation(Vector3 stick)
     {
         float x = stick.x;
@@ -37,8 +47,11 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        healthComponent = gameObject.GetComponent<Health>();
         Movement = GetComponent<PlayerMovementV2>();
         OnAwake();
+
+        elapsingTimeBetweenLavaDamage = timeBetweenLavaDamage;
     }
 
     protected virtual void OnAwake()
@@ -133,7 +146,7 @@ public class Player : MonoBehaviour
                 }
 
                 Vector3 lookDir = lookPos - transform.position;
-                
+
                 lookDir.y = 0;
 
                 transform.LookAt(transform.position + lookDir, Vector3.up);
@@ -175,6 +188,19 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(0f, 8f, 0f);
             Movement.Rigidbody.velocity = Vector3.zero;
         }
+
+        if (isTouchingLava == true)
+        {
+            elapsingTimeBetweenLavaDamage -= Time.deltaTime;
+
+            if (elapsingTimeBetweenLavaDamage <= 0.0f)
+            {
+                healthComponent.health--;
+                elapsingTimeBetweenLavaDamage = timeBetweenLavaDamage;
+            }
+
+
+        }
     }
 
     protected virtual void OnUpdate()
@@ -201,5 +227,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Lava")
+        {
+            isTouchingLava = true;
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Lava")
+        {
+            isTouchingLava = false;
+            elapsingTimeBetweenLavaDamage = timeBetweenLavaDamage;
+        }
+    }
 }
